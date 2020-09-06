@@ -1,0 +1,12 @@
+<h1>Hi! Please confirm your email!</h1>
+
+<p>
+    hallo {{ user }} !
+    Please confirm your email address by clicking the following link: <br><br>
+    <a href="{{ url|raw }}">Confirm my Email</a>.
+    this link expired at {{ expiredAt|date("m/d/Y") }}
+</p>
+
+<p>
+    Cheers!
+</p>
