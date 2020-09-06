@@ -24,7 +24,7 @@ class RegistrationController extends AbstractFOSRestController
 
     /**
      * @Rest\Post("/api/user", name="app_register")
-     * @Rest\QueryParam(name="username", requirements="[a-z]+", description="Firstname")
+     * @Rest\QueryParam(name="username")
      * @Rest\QueryParam(name="password")
      * @Rest\QueryParam(name="email", requirements=@Constraints\Email)
      * @param ParamFetcherInterface $fetcher
@@ -52,11 +52,9 @@ class RegistrationController extends AbstractFOSRestController
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
-        try {
+
             $entityManager->flush();
-        } catch (\Exception $exception) {
-            return new JsonResponse('',400);
-        }
+
 
         $url= new GeneratedUrl();
         $url->setExpiredAt(2);

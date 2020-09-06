@@ -61,7 +61,7 @@ class User implements UserInterface
     private $deletedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=Profile::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Profile::class, cascade={"persist", "remove"},fetch="EAGER")
      */
     private $profile;
 
