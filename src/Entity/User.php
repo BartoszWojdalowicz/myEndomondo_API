@@ -10,6 +10,7 @@ use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -20,6 +21,7 @@ class User implements UserInterface
 {
     /**
      * @var UuidInterface
+     * @Groups("getForgotPasswordHash")
      *
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)

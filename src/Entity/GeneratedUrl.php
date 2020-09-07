@@ -117,10 +117,10 @@ class GeneratedUrl
     public function isExpired(){
 
         if($this->expiredAt->getTimestamp() - time() > 0){
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
 
     }
 }
