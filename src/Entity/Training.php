@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @ORM\Entity(repositoryClass=TrainingRepository::class)
  */
@@ -15,6 +17,7 @@ class Training
 {
     /**
      * @var UuidInterface
+     * @Groups({"post_training","get_training"})
      *
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -24,21 +27,25 @@ class Training
     private $id;
 
     /**
+     * @Groups({"post_training","get_training"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
+     * @Groups({"post_training", "get_training"})
      * @ORM\Column(type="text", nullable=true)
      */
     private $notes;
 
     /**
+     * @Groups({"post_training","get_training"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
+     * @Groups("post_training")
      * @ORM\OneToMany(targetEntity=GpsLog::class, mappedBy="training")
      */
     private $log;

@@ -22,19 +22,20 @@ class TrainingRepository extends ServiceEntityRepository
     // /**
     //  * @return Training[] Returns an array of Training objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function CountAllUsersTraning($user)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+
+        $qb = $this->createQueryBuilder('t');
+        $qb->select($qb->expr()->count('t'))
+            ->where('t.user = :user')
+            ->setParameter('user', $user);
+
+        $query = $qb->getQuery();
+
+        return $query->getSingleScalarResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Training

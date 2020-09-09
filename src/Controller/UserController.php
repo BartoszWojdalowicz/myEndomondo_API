@@ -101,6 +101,7 @@ class UserController extends AbstractFOSRestController
         $user=$url->getUser();
         $em=$this->getDoctrine()->getManager();
         $em->flush();
+
         $user=$serializer->serialize($user,'json',['groups'=>'getForgotPasswordHash']);
 
         return new Response($user,200);
