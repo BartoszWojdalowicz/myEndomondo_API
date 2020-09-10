@@ -6,6 +6,8 @@ use App\Repository\GpsLogRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @ORM\Entity(repositoryClass=GpsLogRepository::class)
  */
@@ -14,6 +16,7 @@ class GpsLog
     /**
      * @var UuidInterface
      *
+     * @Groups({"post_gps_log", "get_gps_log"})
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="UUID")
@@ -22,36 +25,43 @@ class GpsLog
     private $id;
     /**
      * @ORM\Column(type="float")
+     * @Groups({"post_gps_log", "get_gps_log"})
      */
-    private $langitude;
+    private $longitude;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"post_gps_log", "get_gps_log"})
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups({"post_gps_log", "get_gps_log"})
      */
     private $speed;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups({"post_gps_log", "get_gps_log"})
      */
     private $height;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"post_gps_log", "get_gps_log"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"post_gps_log", "get_gps_log"})
      */
     private $isStop;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"post_gps_log", "get_gps_log"})
      */
     private $isPaused;
 
@@ -69,14 +79,14 @@ class GpsLog
         return $this->id;
     }
 
-    public function getLangitude(): ?float
+    public function getLongitude(): ?float
     {
-        return $this->langitude;
+        return $this->longitude;
     }
 
-    public function setLangitude(float $langitude): self
+    public function setLongitude(float $longitude): self
     {
-        $this->langitude = $langitude;
+        $this->longitude = $longitude;
 
         return $this;
     }
