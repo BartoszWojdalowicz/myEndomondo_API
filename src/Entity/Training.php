@@ -61,6 +61,11 @@ class Training
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TrainingType::class)
+     */
+    private $type;
+
     public function __construct()
     {
         $this->log = new ArrayCollection();
@@ -164,4 +169,17 @@ class Training
 
         return $this;
     }
+
+    public function getType(): ?TrainingType
+    {
+        return $this->type;
+    }
+
+    public function setType(?TrainingType $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
 }

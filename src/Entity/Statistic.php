@@ -6,6 +6,8 @@ use App\Repository\StatisticRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @ORM\Entity(repositoryClass=StatisticRepository::class)
  */
@@ -18,41 +20,55 @@ class Statistic
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\CustomIdGenerator(class=UuidGenerator::class)
+     * @Groups("get_statistic")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("get_statistic")
      */
     private $kcal;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("get_statistic")
      */
-    private $maxWidth;
+    private $maxHeight;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("get_statistic")
      */
-    private $minWidth;
+    private $minHeight;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups("get_statistic")
      */
     private $maxSpeed;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups("get_statistic")
      */
     private $minSpeed;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
+     * @Groups("get_statistic")
+     */
+    private $avgSpeed;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @Groups("get_statistic")
      */
     private $duration;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("get_statistic")
      */
     private $numberOfBreaks;
 
@@ -76,29 +92,6 @@ class Statistic
         return $this;
     }
 
-    public function getMaxWidth(): ?int
-    {
-        return $this->maxWidth;
-    }
-
-    public function setMaxWidth(?int $maxWidth): self
-    {
-        $this->maxWidth = $maxWidth;
-
-        return $this;
-    }
-
-    public function getMinWidth(): ?int
-    {
-        return $this->minWidth;
-    }
-
-    public function setMinWidth(?int $minWidth): self
-    {
-        $this->minWidth = $minWidth;
-
-        return $this;
-    }
 
     public function getMaxSpeed(): ?float
     {
@@ -124,18 +117,6 @@ class Statistic
         return $this;
     }
 
-    public function getDuration(): ?\DateTimeInterface
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(?\DateTimeInterface $duration): self
-    {
-        $this->duration = $duration;
-
-        return $this;
-    }
-
     public function getNumberOfBreaks(): ?int
     {
         return $this->numberOfBreaks;
@@ -146,5 +127,69 @@ class Statistic
         $this->numberOfBreaks = $numberOfBreaks;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvgSpeed()
+    {
+        return $this->avgSpeed;
+    }
+
+    /**
+     * @param mixed $avgSpeed
+     */
+    public function setAvgSpeed($avgSpeed): void
+    {
+        $this->avgSpeed = $avgSpeed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMaxHeight()
+    {
+        return $this->maxHeight;
+    }
+
+    /**
+     * @param mixed $maxHeight
+     */
+    public function setMaxHeight($maxHeight): void
+    {
+        $this->maxHeight = $maxHeight;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMinHeight()
+    {
+        return $this->minHeight;
+    }
+
+    /**
+     * @param mixed $minHeight
+     */
+    public function setMinHeight($minHeight): void
+    {
+        $this->minHeight = $minHeight;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDuration()
+    {
+        return $this->duration;
+    }
+
+    /**
+     * @param mixed $duration
+     */
+    public function setDuration($duration): void
+    {
+        $this->duration = $duration;
     }
 }

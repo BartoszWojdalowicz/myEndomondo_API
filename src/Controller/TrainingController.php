@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Statistic;
 use App\Entity\Training;
 use App\Repository\TrainingRepository;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -35,7 +36,10 @@ class TrainingController extends AbstractFOSRestController
         $training = $serializer->denormalize($data, Training::class);
         $training->setUser($user);
 
+        $statistic= new Statistic();
+        $training->setStatistic($statistic);
         $em = $this->getDoctrine()->getManager();
+        $em->persist($statistic);
         $em->persist($training);
         $em->flush();
 
