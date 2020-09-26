@@ -43,7 +43,10 @@ class TrainingType
         $this->Training = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

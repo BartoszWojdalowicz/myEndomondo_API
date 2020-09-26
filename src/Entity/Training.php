@@ -66,9 +66,15 @@ class Training
      */
     private $type;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="training")
+     */
+    private $images;
+
     public function __construct()
     {
         $this->log = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     /**
@@ -178,6 +184,37 @@ class Training
     public function setType(?TrainingType $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setTraining($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getTraining() === $this) {
+                $image->setTraining(null);
+            }
+        }
 
         return $this;
     }

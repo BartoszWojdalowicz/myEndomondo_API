@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GpsLogRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
@@ -70,6 +72,16 @@ class GpsLog
      * @ORM\JoinColumn(nullable=false)
      */
     private $training;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="gpsLog")
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     /**
      * @return UuidInterface
@@ -171,6 +183,37 @@ class GpsLog
     public function setTraining(?Training $training): self
     {
         $this->training = $training;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setGpsLog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getGpsLog() === $this) {
+                $image->setGpsLog(null);
+            }
+        }
 
         return $this;
     }

@@ -47,4 +47,16 @@ class GpsLogRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getNearestGPSLog($trainingId, \DateTimeInterface $imageCreatedAt){
+        $qb = $this->createQueryBuilder('l')
+            ->andWhere('l.training = :training')
+            ->andWhere('l.createdAt <= :createdAt')
+            ->setParameter('training', $trainingId)
+            ->setParameter('createdAt', $imageCreatedAt)
+            ->orderBy('l.createdAt','DESC')
+        ;
+
+        return $qb->getQuery()->execute();
+    }
 }
